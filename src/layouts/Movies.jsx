@@ -9,42 +9,62 @@ import {
 import CategoriesButton from "../components/elements/CategoriesButton";
 const Movies = () => {
   const [popularMovies, setPopularMovies] = useState([]);
-  const [tabActive, setTabActive] = useState("popular");
-  // const [trendingTime, setTrendingTime] = useState("day");
+  const [tabActive, setTabActive] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const popularMovie = useCallback(async () => {
     setTabActive("popular");
+    setIsLoading(true);
     try {
       const response = await getPopularMovies();
       setPopularMovies(response);
     } catch (error) {
       console.log("Error Fetching Popular Movie", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     }
   }, [setTabActive, setPopularMovies]);
   const topRatedMovie = useCallback(async () => {
     setTabActive("top-rated");
+    setIsLoading(true);
     try {
       const response = await getTopRatedMovie();
       setPopularMovies(response);
     } catch (error) {
       console.log("Error Fetching Top Rated Movie", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     }
   }, [setTabActive, setPopularMovies]);
   const upcomingMovie = useCallback(async () => {
     setTabActive("upcoming");
+    setIsLoading(true);
     try {
       const response = await getUpcomingMovie();
       setPopularMovies(response);
     } catch (error) {
       console.log("Error Fetching Upcoming Movie", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     }
   }, [setTabActive, setPopularMovies]);
   const nowPlayingMovie = useCallback(async () => {
     setTabActive("now-playing");
+    setIsLoading(true);
     try {
       const response = await getNowPlayingMovie();
       setPopularMovies(response);
     } catch (error) {
       console.log("Error Fetching Now Playing Movie", error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1500);
     }
   }, [setTabActive, setPopularMovies]);
   useEffect(() => {
@@ -68,14 +88,31 @@ const Movies = () => {
     divEle.style.backgroundImage = `url(https://image.tmdb.org/t/p/original/${img_path})`;
   });
 
+  const scrollItemRight = () => {
+    const item = document.querySelector(".movie-container");
+    item.scroll({
+      left: item.scrollLeft + 300,
+      behavior: "smooth",
+    });
+  };
+  const scrollItemLeft = () => {
+    const item = document.querySelector(".movie-container");
+    item.scroll({
+      left: item.scrollLeft - 300,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section
       id="movie-container"
       className="bg-cover bg-center ease-in-out duration-500 mx-20 rounded-xl my-20"
-      style={{backgroundImage: `url(https://image.tmdb.org/t/p/original/${popularMovies[0]?.backdrop_path})`}}
+      style={{
+        backgroundImage: `url(https://image.tmdb.org/t/p/original/${popularMovies[0]?.backdrop_path})`,
+      }}
     >
-      <div className=" pt-20 backdrop-blur-3xl rounded-xl bg-[#191919]/30">
-        <div className="px-40 mb-10">
+      <div className="pt-20 backdrop-blur-sm rounded-xl bg-black/80 h-[600px] px-20">
+        <div className="px-20 mb-10">
           <div className="flex items-center">
             <div className="flex items-center text-4xl font-semibold font-montserrat text-white me-20">
               <svg
@@ -122,35 +159,80 @@ const Movies = () => {
             </div>
           </div>
         </div>
-        <div className="px-5 hidden-scroll bg-transparent mx-20">
-          <div className="flex w-fit min-h-fit gap-x-10 py-5">
-            {popularMovies.length > 0 ? (
-              popularMovies.map((movie) => {
-                return (
-                  <CardMovie
-                    key={movie.id}
-                    id={movie.id}
-                    media_type="movie"
-                    onmouseenter={() => backdropChanges(movie.backdrop_path)}
-                  >
-                    <CardMovie.Image
-                      poster_path={movie.poster_path}
-                      title={movie.title ? movie.title : movie.name}
-                    ></CardMovie.Image>
-                    <CardMovie.Title
-                      title={movie.title ? movie.title : movie.name}
-                    ></CardMovie.Title>
-                    <CardMovie.Footer
-                      rating={movie.vote_average}
-                      date_release={movie.release_date}
-                    ></CardMovie.Footer>
-                  </CardMovie>
-                );
-              })
-            ) : (
-              <p className="text-white text-center">No Movies Found</p>
-            )}
-          </div>
+        <div className="text-white">
+          <button
+            onClick={() => scrollItemLeft()}
+            className="mx-1 bg-red-950 rounded-full p-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="w-3 h-3"
+            >
+              <path
+                fillRule="evenodd"
+                d="M14 8a.75.75 0 0 1-.75.75H4.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L4.56 7.25h8.69A.75.75 0 0 1 14 8Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+          <button
+            onClick={() => scrollItemRight()}
+            className="mx-1 bg-red-950 rounded-full p-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="w-3 h-3"
+            >
+              <path
+                fillRule="evenodd"
+                d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 0 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+        <div className="px-5 hidden-scroll bg-transparent snap-x snap-mandatory movie-container">
+          {!isLoading ? (
+            <div
+              className={`${
+                isLoading ? "" : "fade-in"
+              } flex w-fit min-h-fit gap-x-10 py-5`}
+            >
+              {popularMovies.length > 0 ? (
+                popularMovies.map((movie) => {
+                  return (
+                    <CardMovie
+                      key={movie.id}
+                      id={movie.id}
+                      media_type="movie"
+                      onmouseenter={() => backdropChanges(movie.backdrop_path)}
+                    >
+                      <CardMovie.Image
+                        poster_path={movie.poster_path}
+                        title={movie.title}
+                        rating={movie.vote_average}
+                        type={`movie`}
+                      ></CardMovie.Image>
+                      <CardMovie.Title title={movie.title}></CardMovie.Title>
+                      <CardMovie.Footer
+                        date_release={movie.release_date}
+                      ></CardMovie.Footer>
+                    </CardMovie>
+                  );
+                })
+              ) : (
+                <p className="text-white text-center">No Movies Found</p>
+              )}
+            </div>
+          ) : (
+            <div className="flex justify-center items-center">
+              <div className="home-loader"></div>
+            </div>
+          )}
         </div>
       </div>
     </section>

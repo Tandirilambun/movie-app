@@ -1,37 +1,16 @@
 .hidden-scroll {
   overflow: auto;
-  
 }
 .hidden-scroll::-webkit-scrollbar {
   height: 8px;
 }
 
 .hidden-scroll::-webkit-scrollbar-thumb {
-  background-color: #2a2a2a;
+  background-color: rgb(50, 50, 50);
   border-radius: 50px;
 }
 .hidden-scroll::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.15);
   border-radius: 50px;
-}
-.container-trailer .should-fade:after {
-  content: "";
-  position: absolute;
-  width: 50px;
-  top: 1005px;
-  right: 576px;
-  height: 320px;
-  background-color: black;
-  background: linear-gradient(to left, #191919 0%, transparent 100%);
-}
-
-.container-trailer .is-fading:after {
-  transition: ease-in-out 300ms;
-  opacity: 1;
-}
-.container-trailer .is-hidden:after {
-  transition: ease-in-out 300ms;
-  opacity: 0;
 }
 
 .hidden-scroll-vertical {
@@ -61,19 +40,18 @@
 .categories :after {
   content: "";
   position: absolute;
+  /* margin-top: 1rem; */
   bottom: -30%;
   left: 30%;
   width: 65px;
   height: 5px;
   background-color: #b91f27;
   border-radius: 100px;
-  transform: scaleX(0.5);
-  transition: 100ms;
-  opacity: 0;
+  transform: scaleX(0);
+  transition: 300ms;
 }
 .categories .active:after {
   transform: scaleX(1);
-  opacity: 1;
 }
 .categories .active h2 {
   color: white;
@@ -117,29 +95,121 @@
   opacity: 1;
 }
 .loader {
-    font-weight: bold;
-    font-family: monospace;
-    font-size: 30px;
-    display: inline-grid;
-    color: white;
+  font-weight: bold;
+  font-family: monospace;
+  font-size: 30px;
+  display: inline-grid;
+  color: white;
+}
+.loader:before,
+.loader:after {
+  content: "Loading...";
+  grid-area: 1/1;
+  -webkit-mask: linear-gradient(90deg, #000 50%, #0000 0) 0 50%/2ch 100%;
+  animation: l11 1s infinite cubic-bezier(0.5, 220, 0.5, -220);
+}
+.loader:after {
+  -webkit-mask-position: 1ch 50%;
+  --s: -1;
+}
+@keyframes l11 {
+  100% {
+    transform: translateY(calc(var(--s, 1) * 0.1%));
   }
-  .loader:before,
-  .loader:after {
-    content:"Loading...";
-    grid-area: 1/1;
-    -webkit-mask:linear-gradient(90deg,#000 50%,#0000 0) 0 50%/2ch 100%;
-    animation: l11 1s infinite cubic-bezier(0.5,220,0.5,-220);
-  }
-  .loader:after {
-    -webkit-mask-position:1ch 50%;
-    --s:-1;
-  }
-  @keyframes l11 {100%{transform: translateY(calc(var(--s,1)*0.1%));}}
+}
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   width: 8px;
 }
-body::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb {
   background-color: #2a2a2a;
   border-radius: 50px;
 }
+
+.btn-back svg {
+  z-index: 9;
+  transform: translate(20px, 0px);
+  transition: ease-in-out 300ms;
+}
+.btn-back:hover svg {
+  z-index: 9;
+  transform: translate(0px, 0px);
+  transition: ease-in-out 300ms;
+}
+
+.dd-list li:hover {
+  color: #b91f27;
+}
+
+/* HTML: <div class="loader"></div> */
+.home-loader {
+  width: 40px;
+  aspect-ratio: 1;
+  --c: linear-gradient(#fff 0 0);
+  --r1: radial-gradient(farthest-side at bottom, #fff 93%, #ffff);
+  --r2: radial-gradient(farthest-side at top, #fff 93%, #ffff);
+  background: var(--c), var(--r1), var(--r2), var(--c), var(--r1), var(--r2),
+    var(--c), var(--r1), var(--r2);
+  background-repeat: no-repeat;
+  animation: l2 1s infinite alternate;
+}
+@keyframes l2 {
+  0%,
+  25% {
+    background-size: 8px 0, 8px 4px, 8px 4px, 8px 0, 8px 4px, 8px 4px, 8px 0,
+      8px 4px, 8px 4px;
+    background-position: 0 50%, 0 calc(50% - 2px), 0 calc(50% + 2px), 50% 50%,
+      50% calc(50% - 2px), 50% calc(50% + 2px), 100% 50%, 100% calc(50% - 2px),
+      100% calc(50% + 2px);
+  }
+  50% {
+    background-size: 8px 100%, 8px 4px, 8px 4px, 8px 0, 8px 4px, 8px 4px, 8px 0,
+      8px 4px, 8px 4px;
+    background-position: 0 50%, 0 calc(0% - 2px), 0 calc(100% + 2px), 50% 50%,
+      50% calc(50% - 2px), 50% calc(50% + 2px), 100% 50%, 100% calc(50% - 2px),
+      100% calc(50% + 2px);
+  }
+  75% {
+    background-size: 8px 100%, 8px 4px, 8px 4px, 8px 100%, 8px 4px, 8px 4px,
+      8px 0, 8px 4px, 8px 4px;
+    background-position: 0 50%, 0 calc(0% - 2px), 0 calc(100% + 2px), 50% 50%,
+      50% calc(0% - 2px), 50% calc(100% + 2px), 100% 50%, 100% calc(50% - 2px),
+      100% calc(50% + 2px);
+  }
+  95%,
+  100% {
+    background-size: 8px 100%, 8px 4px, 8px 4px, 8px 100%, 8px 4px, 8px 4px,
+      8px 100%, 8px 4px, 8px 4px;
+    background-position: 0 50%, 0 calc(0% - 2px), 0 calc(100% + 2px), 50% 50%,
+      50% calc(0% - 2px), 50% calc(100% + 2px), 100% 50%, 100% calc(0% - 2px),
+      100% calc(100% + 2px);
+  }
+}
+
+.hidden-scroll .fade-in {
+  animation: fading 300ms ease-in-out;
+}
+@keyframes fading {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+header.is-hidden{
+  /* height: 0rem; */
+  transform: translateY(-70px);
+  transition:ease-in-out 300ms;
+}
+
+header.active {
+  transform: translateY(0px);
+  transition:ease-in-out 200ms;
+}
+
+.sort-item option{
+  background-color: white;
+}
+

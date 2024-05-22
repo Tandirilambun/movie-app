@@ -49,6 +49,24 @@ const Cast = ({ cast, item_id, type }) => {
               )}
             </div>
           </div>
+          <Link
+            to={"cast"}
+            className="border-[1px] border-[#2f2f2f] rounded-xl text-white p-3 flex ease-in-out duration-200 scale-100 hover:scale-110 w-fit my-2"
+          >
+            <p className="text-sm mr-2">Full Cast And Crew</p>
+            <span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                className="fill-white"
+              >
+                <title>arrow-right</title>
+                <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z" />
+              </svg>
+            </span>
+          </Link>
         </div>
       </section>
     </>

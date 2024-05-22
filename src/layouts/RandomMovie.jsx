@@ -24,12 +24,12 @@ const LatestMovie = () => {
           backgroundImage: `url(${baseImgURL}original/${latestMovie.backdrop_path})`,
         }}
       >
-        <div className="min-h-dvh bg-gradient-to-t from-[#191919] to-[#191919]/60 p-60">
+        <div className="min-h-dvh bg-gradient-to-t from-black to-black/60 p-60">
           <div className="flex flex-wrap items-center pb-10">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="35"
-              height="35"
+              width="25"
+              height="25"
               className="fill-yellow-500 self-center"
               viewBox="0 0 24 24"
             >

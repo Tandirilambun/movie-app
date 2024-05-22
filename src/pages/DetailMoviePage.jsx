@@ -41,7 +41,6 @@ const DetailMoviePage = () => {
         );
         setKeywords(res.keywords.keywords);
         setLogo(res.images.logos.filter((logo) => logo.iso_639_1 === "en")[0]);
-
         if (res.belongs_to_collection) {
           const col = await getMovieCollection(res.belongs_to_collection.id);
           setCollection(col);
@@ -54,6 +53,7 @@ const DetailMoviePage = () => {
     };
     fetchData(movieId);
   }, [movieId]);
+  console.log(movie);
   return !isLoading ? (
     <>
       <NavigationBar />

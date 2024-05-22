@@ -143,7 +143,7 @@ const getDetailSeries = async (series_id) => {
 };
 
 const getCredit = async (type, id) => {
-  const response = await axios.get(`${baseURL}/${type}/${id}/credits`, {
+  const response = await axios.get(`${baseURL}/${type}/${id}?append_to_response=credits`, {
     headers: {
       accept: "application/json",
       Authorization: `Bearer ${accessToken}`,
@@ -151,6 +151,20 @@ const getCredit = async (type, id) => {
   });
   return response.data;
 };
+
+const getPeople = async (id) => {
+  const response = await axios.get(`${baseURL}/person/${id}?append_to_response=images,movie_credits,combined_credits`, {
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  return response.data;
+};
+
+const getDiscoverMovie = async () => {
+  const response = await axios.get(`${baseURL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc'`)
+}
 
 export {
   getTrendingAll,
@@ -167,5 +181,6 @@ export {
   getSeriesTopRated,
   getSeriesTrending,
   getDetailSeries,
-  getCredit
+  getCredit,
+  getPeople,
 };

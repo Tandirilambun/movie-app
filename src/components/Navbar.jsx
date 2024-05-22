@@ -1,38 +1,107 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const NavigationBar = () => {
-  const [showBar, setShowBar] = useState(false);
-  const Bar = () => {
-    setShowBar(!showBar);
+  const [showBar, setShowBar] = useState(true);
+  const [tabBar, setTabBar] = useState("");
+
+  const bar = () => {
+    if (scrollY >= 40) {
+      setShowBar(true);
+    } else {
+      setShowBar(false);
+    }
   };
+
+  function onHoverHandler(type) {
+    setTabBar(type);
+  }
+  function onLeaveHandler() {
+    setTabBar(false);
+  }
+
+  useEffect(() => {
+    bar();
+    addEventListener("scroll", bar);
+  });
   return (
-    <header className="fixed top-0 left-0 w-full flex items-center z-10 py-5 border-b-[0.5px] border-white bg-black/50 backdrop-blur-sm">
+    <header
+      className={`${showBar ? "active" : "is-hidden"} fixed top-0 left-0 w-full flex items-center z-10 py-3 border-b-[0.5px] border-white bg-black/50 backdrop-blur-sm`}
+    >
       <div className="container mx-auto px-4 text-white py-4 lg:py-0">
-        <div className="relative flex items-center justify-between">
-          <div>
+        <div className="relative flex items-center gap-x-32">
+          <div className="">
             <img src="/icon/title-logo.png" alt="" className="h-10" />
           </div>
-          <div>
+          <div className="">
             <ul className="flex gap-x-40">
-              <li className="group">
-                <Link to="/" className="font-commissioner text-lg">
+              <li className="group p-2">
+                <Link to="/" className="font-commissioner text-lg ">
                   Home
                 </Link>
               </li>
-              <li className="group">
-                <a href="#" className="font-commissioner text-lg">
-                  Movie
-                </a>
+              <li
+                className="group p-2"
+                onMouseEnter={() => onHoverHandler("movie")}
+                onMouseLeave={onLeaveHandler}
+              >
+                <p className="font-commissioner text-lg ">Movie</p>
+                <ul
+                  className={`${
+                    tabBar === "movie" ? "block" : "hidden"
+                  } absolute bg-slate-900 px-6 py-1 w-48 rounded-xl mt-2 font-commissioner dd-list`}
+                >
+                  <li className="my-3">
+                    <Link to={"/movie/"}>Popular</Link>
+                  </li>
+                  <li className="my-3">
+                    <Link>Now Playing</Link>
+                  </li>
+                  <li className="my-3">
+                    <Link>Upcoming</Link>
+                  </li>
+                  <li className="my-3">
+                    <Link>Top Rated</Link>
+                  </li>
+                </ul>
               </li>
-              <li className="group">
-                <a href="#" className="font-commissioner text-lg">
-                  TV Series
-                </a>
+              <li
+                className="group p-2"
+                onMouseEnter={() => onHoverHandler("tv")}
+                onMouseLeave={onLeaveHandler}
+              >
+                <p className="font-commissioner text-lg">TV Series</p>
+                <ul
+                  className={`${
+                    tabBar === "tv" ? "block" : "hidden"
+                  } absolute bg-slate-900 px-6 py-1 w-48 rounded-xl mt-2 font-commissioner dd-list`}
+                >
+                  <li className="my-3">
+                    <Link>Popular</Link>
+                  </li>
+                  <li className="my-3">
+                    <Link>Airing Today</Link>
+                  </li>
+                  <li className="my-3">
+                    <Link>On Tv</Link>
+                  </li>
+                  <li className="my-3">
+                    <Link>Top Rated</Link>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
-          <div id="search-section" className="flex gap-x-2">
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default NavigationBar;
+
+{
+  /* <div id="search-section" className="flex gap-x-2">
             <button
               type="button"
               className={`${
@@ -76,11 +145,5 @@ const NavigationBar = () => {
                 <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z" />
               </svg>
             </button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-};
-
-export default NavigationBar;
+          </div> */
+}

@@ -32,14 +32,23 @@ const Info = ({
           backgroundImage: `url(${baseImgURL}original/${backdrop})`,
         }}
       >
-        <div className="min-h-dvh bg-gradient-to-t from-[#191919] to-[#191919]/60 px-60 py-24">
+        <div className="min-h-dvh bg-gradient-to-t from-black from-30% to-black/60 px-60 py-24">
           <div>
-            <h1 className="text-white font-commissioner font-medium text-2xl">
-              Movies
-            </h1>
-            <h2 className="text-gray-400 font-commissioner font-medium text-sm mb-10">
-              On App
-            </h2>
+            <div
+              className="btn-back text-xl cursor-pointer w-fit text-white flex items-center mb-10 bg-black p-2 rounded-full"
+              onClick={() => window.history.back()}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+
+                className="fill-white w-5 h-5"
+              >
+                <title>arrow-left</title>
+                <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+              </svg>
+              <p className="bg-black z-10 mr-3 text-sm">Back to main</p>
+            </div>
             <div className="flex gap-x-20 min-h-fit">
               <div className="flex flex-wrap flex-col justify-between ">
                 <div>
@@ -154,7 +163,7 @@ const Info = ({
               <img
                 src={`${baseImgURL}/original/${poster}`}
                 alt=""
-                className="h-[33rem]"
+                className="h-[30rem] rounded-md"
                 loading="lazy"
               />
             </div>

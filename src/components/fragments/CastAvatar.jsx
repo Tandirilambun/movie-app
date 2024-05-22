@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const CastAvatar = ({ id, name, character, path }) => {
   return (
     <Fragment>
-      <Link to={`/person/${id}`} className="w-40 h-full ease-in-out duration-150 scale-100 hover:ease-in-out hover:duration-150 hover:scale-110">
+      <Link to={`/people/${id}`} className="w-40 h-full ease-in-out duration-150 scale-100 hover:ease-in-out hover:duration-150 hover:scale-110">
         <div className="flex justify-center">
           <img
             src={path ? `${baseImgURL}original/${path}` : "/icon/profile-icon.png"}

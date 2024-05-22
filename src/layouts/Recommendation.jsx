@@ -23,6 +23,8 @@ const Recommendation = ({ recom }) => {
                       poster_path={movie.poster_path}
                       title={movie.title ? movie.title : movie.name}
                       size_img="h-56"
+                      type={movie.media_type}
+                      rating={movie.vote_average}
                     ></CardMovie.Image>
                     <CardMovie.Title
                       title={movie.title ? movie.title : movie.name}

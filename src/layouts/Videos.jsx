@@ -1,39 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TrailerCard from "../components/fragments/TrailerCard";
 import { ytEmbedURL } from "../../config";
+import TrailerOverlay from "../components/fragments/trailerOverlay";
+// import TrailerOverlay from "../components/fragments/trailerOverlay";
 
 const Videos = ({ item_title, trailer }) => {
   const [keyVideo, setKeyVideo] = useState({});
   const overlayEle = document.getElementById("trailer-overlay");
+
   const getKeyVideo = (key, title) => {
     setKeyVideo({ key: key, title: title });
-    overlayEle.classList.remove("hidden");
-    overlayEle.classList.add("block");
-  };
-  const closeOverlay = () => {
-    document.getElementById("trailer-video").src = "";
-    overlayEle.classList.remove("block");
-    overlayEle.classList.add("hidden");
-    document.getElementById(
-      "trailer-video"
-    ).src = `${ytEmbedURL}${keyVideo.key}`;
-  };
-
-  const fadeEdge = () => {
-    const id_element = document.querySelector(".hidden-scroll");
-    const scrollWidth = id_element.scrollWidth;
-    const clientWidth = id_element.clientWidth;
-    const scrollable = scrollWidth - clientWidth;
-    const leftScroll = id_element.scrollLeft;
-    const result = leftScroll  >= scrollable-5;
-    if(result) {
-      document.getElementById("scroll-trailer").classList.remove("is-fading");
-      document.getElementById("scroll-trailer").classList.add("is-hidden");
-
-    }else{
-      document.getElementById("scroll-trailer").classList.remove("is-hidden");
-      document.getElementById("scroll-trailer").classList.add("is-fading");
-    }
+    overlayEle?.classList.remove("hidden");
+    overlayEle?.classList.add("block");
   };
 
   return (
@@ -41,8 +19,11 @@ const Videos = ({ item_title, trailer }) => {
       <section className="py-12 mx-20 px-5 border-b-[1px] border-[#2f2f2f]">
         <div className="container-trailer">
           <h1 className="font-commissioner text-white text-3xl font-bold">{`Watch ${item_title} Trailer`}</h1>
-          <div id="scroll-trailer" className="should-fade ease-in-out duration-300 is-fading" >
-            <div className="hidden-scroll" onScroll={fadeEdge}>
+          <div
+            id="scroll-trailer"
+            className="should-fade ease-in-out duration-300 is-fading"
+          >
+            <div className="hidden-scroll">
               <div className="flex w-fit gap-x-5 pt-10 pb-5">
                 {trailer.map((video) => {
                   return (
@@ -56,7 +37,24 @@ const Videos = ({ item_title, trailer }) => {
               </div>
             </div>
           </div>
-          <div
+          <TrailerOverlay keyVideo={keyVideo} />
+        </div>
+      </section>
+    </>
+  );
+};
+
+export default Videos;
+// const closeOverlay = () => {
+//   document.getElementById("trailer-video").src = "";
+//   overlayEle.classList.remove("block");
+//   overlayEle.classList.add("hidden");
+//   document.getElementById(
+//     "trailer-video"
+//   ).src = `${ytEmbedURL}${keyVideo.key}`;
+// };
+{
+  /* <div
             id="trailer-overlay"
             className="hidden w-full h-full bg-[#191919]/75 z-[999] fixed top-0 left-0"
           >
@@ -94,11 +92,5 @@ const Videos = ({ item_title, trailer }) => {
                 )}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
-
-export default Videos;
+          </div> */
+}

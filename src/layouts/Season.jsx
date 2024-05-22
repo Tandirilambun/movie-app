@@ -9,7 +9,7 @@ const Season = ({ season }) => {
         </h1>
 
         <div className="hidden-scroll">
-          <div className="flex w-fit min-h-fit gap-x-7 py-5">
+          <div className="flex w-full min-h-fit gap-x-7 py-5">
             {season?.length > 0 ? (
               season.map((item) => {
                 return (

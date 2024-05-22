@@ -12,11 +12,14 @@ const CardSeason = ({
 }) => {
   return (
     <Fragment>
-      <Link to={`/season/${id}`} className="w-40 h-full group text-sm">
+      <Link
+        to={`/season/${id}`}
+        className="hover:bg-white/15 rounded-md w-fit p-2 ease-in-out duration-300 hover:ease-in-out hover:duration-300 h-full group text-sm"
+      >
         <img
           src={`${baseImgURL}w500/${poster_path}`}
           alt=""
-          className="w-full h-56 rounded-md mb-5"
+          className="w-40 h-56 rounded-md mb-5"
           loading="lazy"
         />
         <p className="font-montserrat text-white font-semibold ">{name}</p>
